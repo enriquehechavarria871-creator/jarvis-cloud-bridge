@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>J.A.R.V.I.S AI Core</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <canvas id="space"></canvas>
+
+  <main class="interface">
+    <div class="title">
+      <h1>J.A.R.V.I.S</h1>
+      <p id="mode">AI CORE // IDLE</p>
+    </div>
+
+    <section class="core" id="core">
+      <div class="glow"></div>
+      <div class="orbital o1"></div>
+      <div class="orbital o2"></div>
+      <div class="orbital o3"></div>
+      <div class="orbital o4"></div>
+
+      <div class="electron e1"></div>
+      <div class="electron e2"></div>
+      <div class="electron e3"></div>
+      <div class="electron e4"></div>
+
+      <div class="brain">
+        <span></span>
+      </div>
+
+      <div class="wave w1"></div>
+      <div class="wave w2"></div>
+      <div class="wave w3"></div>
+    </section>
+
+    <div class="floating-data left-data">
+      <p>VOICE ONLINE</p>
+      <p>MEMORY ACTIVE</p>
+      <p>CORE STABLE</p>
+    </div>
+
+    <div class="floating-data right-data">
+      <p>USER ENRIQUE</p>
+      <p>MODE ASSISTANT</p>
+      <p>LINK SECURE</p>
+    </div>
+
+    <div class="log" id="log">
+      <p>[SYSTEM] AI Core initialized.</p>
+      <p>[CORE] Waiting for command.</p>
+    </div>
+
+    <div class="command">
+      <input id="commandInput" type="text">
+      <button onclick="sendCommand()">SEND</button>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

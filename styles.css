@@ -1,0 +1,341 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #062d38 0%, #02070d 45%, #000 100%);
+  font-family: Consolas, monospace;
+  color: #00f7ff;
+}
+
+#space {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+.interface {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
+}
+
+.title {
+  position: absolute;
+  top: 32px;
+  width: 100%;
+  text-align: center;
+  pointer-events: none;
+}
+
+.title h1 {
+  margin: 0;
+  font-size: 76px;
+  letter-spacing: 22px;
+  color: #00f7ff;
+  text-shadow: 0 0 20px #00f7ff, 0 0 70px #00f7ff;
+}
+
+.title p {
+  color: #65ff9f;
+  letter-spacing: 6px;
+  text-shadow: 0 0 16px #65ff9f;
+}
+
+.core {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  width: 520px;
+  height: 520px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  filter: drop-shadow(0 0 40px #00f7ff);
+  transform-style: preserve-3d;
+}
+
+.glow {
+  position: absolute;
+  inset: 80px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,247,255,0.9), rgba(0,247,255,0.15) 45%, transparent 70%);
+  box-shadow: 0 0 90px #00f7ff, 0 0 200px rgba(0,247,255,.6);
+  animation: breathe 2.5s ease-in-out infinite;
+}
+
+.brain {
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, white 0%, #00f7ff 28%, rgba(0,247,255,0.2) 70%);
+  border-radius: 50%;
+  box-shadow: 0 0 55px #00f7ff, 0 0 170px #00f7ff;
+  animation: brainPulse 1.8s infinite ease-in-out;
+}
+
+.brain span {
+  position: absolute;
+  inset: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.8);
+  animation: spin 4s linear infinite;
+}
+
+.orbital {
+  position: absolute;
+  border: 2px solid rgba(0,247,255,.75);
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform-style: preserve-3d;
+}
+
+.o1 {
+  width: 520px;
+  height: 170px;
+  margin-left: -260px;
+  margin-top: -85px;
+  animation: rotateOrbital 6s linear infinite;
+}
+
+.o2 {
+  width: 520px;
+  height: 170px;
+  margin-left: -260px;
+  margin-top: -85px;
+  transform: rotate(60deg);
+  animation: rotateOrbital2 7s linear infinite;
+}
+
+.o3 {
+  width: 520px;
+  height: 170px;
+  margin-left: -260px;
+  margin-top: -85px;
+  transform: rotate(120deg);
+  animation: rotateOrbital3 9s linear infinite;
+}
+
+.o4 {
+  width: 370px;
+  height: 370px;
+  margin-left: -185px;
+  margin-top: -185px;
+  border-style: dashed;
+  animation: spinReverse 12s linear infinite;
+}
+
+.electron {
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #65ff9f;
+  box-shadow: 0 0 18px #65ff9f, 0 0 45px #65ff9f;
+  left: 50%;
+  top: 50%;
+}
+
+.e1 { animation: electron1 4s linear infinite; }
+.e2 { animation: electron2 5.5s linear infinite; }
+.e3 { animation: electron3 7s linear infinite; }
+.e4 { animation: electron4 8s linear infinite; }
+
+.wave {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border: 1px solid rgba(101,255,159,.55);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: wave 3s ease-out infinite;
+}
+
+.w1 { animation-delay: 0s; }
+.w2 { animation-delay: 1s; }
+.w3 { animation-delay: 2s; }
+
+.floating-data {
+  position: absolute;
+  top: 42%;
+  font-size: 14px;
+  letter-spacing: 2px;
+  color: rgba(180,255,255,.9);
+  text-shadow: 0 0 14px #00f7ff;
+  pointer-events: none;
+}
+
+.floating-data p {
+  margin: 16px 0;
+}
+
+.left-data {
+  left: 90px;
+  text-align: left;
+}
+
+.right-data {
+  right: 90px;
+  text-align: right;
+}
+
+.log {
+  position: absolute;
+  bottom: 95px;
+  left: 50%;
+  width: 700px;
+  transform: translateX(-50%);
+  color: #65ff9f;
+  text-align: center;
+  text-shadow: 0 0 12px #65ff9f;
+  pointer-events: none;
+}
+
+.log p {
+  margin: 6px;
+}
+
+.command {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  width: 620px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+}
+
+.command input {
+  flex: 1;
+  padding: 15px 20px;
+  background: rgba(0,0,0,.45);
+  border: 1px solid rgba(0,247,255,.85);
+  color: white;
+  outline: none;
+  font-family: Consolas, monospace;
+  box-shadow: 0 0 20px rgba(0,247,255,.3);
+  border-radius: 50px;
+}
+
+.command button {
+  padding: 15px 26px;
+  border-radius: 50px;
+  border: 1px solid #00f7ff;
+  background: rgba(0,247,255,.12);
+  color: #00f7ff;
+  font-family: Consolas, monospace;
+  cursor: pointer;
+  box-shadow: 0 0 18px rgba(0,247,255,.45);
+}
+
+.command button:hover {
+  background: #00f7ff;
+  color: black;
+}
+
+.interface.processing .core {
+  filter: drop-shadow(0 0 80px #65ff9f);
+}
+
+.interface.processing .glow {
+  box-shadow: 0 0 130px #65ff9f, 0 0 260px rgba(101,255,159,.8);
+}
+
+.interface.processing .brain {
+  box-shadow: 0 0 80px #65ff9f, 0 0 220px #65ff9f;
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(.95); opacity: .75; }
+  50% { transform: scale(1.12); opacity: 1; }
+}
+
+@keyframes brainPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.18); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spinReverse {
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes rotateOrbital {
+  from { transform: rotateX(70deg) rotateZ(0deg); }
+  to { transform: rotateX(70deg) rotateZ(360deg); }
+}
+
+@keyframes rotateOrbital2 {
+  from { transform: rotateX(70deg) rotateY(60deg) rotateZ(0deg); }
+  to { transform: rotateX(70deg) rotateY(60deg) rotateZ(360deg); }
+}
+
+@keyframes rotateOrbital3 {
+  from { transform: rotateX(70deg) rotateY(120deg) rotateZ(0deg); }
+  to { transform: rotateX(70deg) rotateY(120deg) rotateZ(-360deg); }
+}
+
+@keyframes electron1 {
+  from { transform: rotate(0deg) translateX(260px); }
+  to { transform: rotate(360deg) translateX(260px); }
+}
+
+@keyframes electron2 {
+  from { transform: rotate(90deg) translateX(230px); }
+  to { transform: rotate(450deg) translateX(230px); }
+}
+
+@keyframes electron3 {
+  from { transform: rotate(180deg) translateX(190px); }
+  to { transform: rotate(-180deg) translateX(190px); }
+}
+
+@keyframes electron4 {
+  from { transform: rotate(270deg) translateX(150px); }
+  to { transform: rotate(630deg) translateX(150px); }
+}
+
+@keyframes wave {
+  0% {
+    width: 90px;
+    height: 90px;
+    opacity: .9;
+  }
+  100% {
+    width: 650px;
+    height: 650px;
+    opacity: 0;
+  }
+}
+#voiceCommand {
+  width: 58px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid #65ff9f;
+  background: rgba(101,255,159,.12);
+  color: #65ff9f;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 0 22px rgba(101,255,159,.55);
+}
+
+#voiceCommand.listening {
+  background: #65ff9f;
+  color: black;
+  animation: micPulse 0.8s infinite;
+}
+
+@keyframes micPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.18); }
+}
