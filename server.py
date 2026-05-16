@@ -1,95 +1,35 @@
-from flask import Flask, request, jsonify
-import uuid
-import time
+from flask import Flask, request, jsonify, send_from_directory
 import os
 
 app = Flask(__name__)
 
-SECRET = os.getenv("JARVIS_SECRET", "cambia_esto_123")
-
-commands = []
-results = {}
-
-def authorized(req):
-    return req.headers.get("X-JARVIS-KEY") == SECRET
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 @app.route("/")
 def home():
-    return "Jarvis Cloud Bridge Online"
+    return send_from_directory(BASE_DIR, "index.html")
 
-@app.route("/phone/send", methods=["POST"])
-def phone_send():
-    if not authorized(request):
-        return jsonify({"ok": False, "error": "No autorizado"}), 401
+@app.route("/script.js")
+def script():
+    return send_from_directory(BASE_DIR, "script.js")
 
-    data = request.get_json()
-    text = data.get("command", "").strip()
+@app.route("/styles.css")
+def styles():
+    return send_from_directory(BASE_DIR, "styles.css")
 
-    if not text:
-        return jsonify({"ok": False, "error": "Comando vacío"})
+@app.route("/command", methods=["POST"])
+def command():
 
-    command_id = str(uuid.uuid4())
+    data = request.json
 
-    commands.append({
-        "id": command_id,
-        "command": text,
-        "created_at": time.time()
-    })
+    text = data.get("command", "")
+
+    response = f"Jarvis recibió: {text}"
 
     return jsonify({
         "ok": True,
-        "command_id": command_id
+        "response": response
     })
-
-@app.route("/phone/result/<command_id>", methods=["GET"])
-def phone_result(command_id):
-    if not authorized(request):
-        return jsonify({"ok": False, "error": "No autorizado"}), 401
-
-    if command_id not in results:
-        return jsonify({
-            "ok": True,
-            "ready": False
-        })
-
-    return jsonify({
-        "ok": True,
-        "ready": True,
-        "response": results[command_id]
-    })
-
-@app.route("/pc/next", methods=["GET"])
-def pc_next():
-    if not authorized(request):
-        return jsonify({"ok": False, "error": "No autorizado"}), 401
-
-    if not commands:
-        return jsonify({
-            "ok": True,
-            "has_command": False
-        })
-
-    command = commands.pop(0)
-
-    return jsonify({
-        "ok": True,
-        "has_command": True,
-        "id": command["id"],
-        "command": command["command"]
-    })
-
-@app.route("/pc/result", methods=["POST"])
-def pc_result():
-    if not authorized(request):
-        return jsonify({"ok": False, "error": "No autorizado"}), 401
-
-    data = request.get_json()
-    command_id = data.get("id")
-    response = data.get("response", "")
-
-    results[command_id] = response
-
-    return jsonify({"ok": True})
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=10000)
