@@ -90,7 +90,7 @@ async function sendCommand() {
 
     try {
 
-        const response = await fetch(API_URL + "/command", {
+        const response = await fetch("/command", {
 
             method: "POST",
 
